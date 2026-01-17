@@ -12,7 +12,7 @@ pythonpath = [
 
 [project]
 name = "seqparser"
-authors = [{name = "Ethan Shurberg", email = "ethan.shurberg@@ucsf.edu"}]
+authors = [{name = "Ethan Shurberg", email = "ethanshur@gmail.com"}]
 readme = "README.md"
 license = {file = "LICENSE"}
 classifiers = ["License :: OSI Approved :: MIT License"]
