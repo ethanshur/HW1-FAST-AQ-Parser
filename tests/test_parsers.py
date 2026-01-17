@@ -6,6 +6,7 @@ from seqparser import (
 
 import pytest
 
+import re
 
 def test_freebie_parser_1():
     """
@@ -22,7 +23,7 @@ def test_freebie_parser_2():
     """
     assert 1 != 2
 
-        
+
 def test_FastaParser():
     """
     Write your unit test for your FastaParser class here. You should generate
@@ -33,28 +34,39 @@ def test_FastaParser():
     files that are blank or corrupted in some way. Two example Fasta files are
     provided in /tests/bad.fa and /tests/empty.fa
     """
-    pass
+    fa = FastaParser("data/test.fa")
+    for record in fa:
+        assert(record[0].startswith("seq"))
+        assert(re.fullmatch(r'[ACTG]*', record[1]), f"Invalid characters found in {record[1]}")
 
+    with pytest.raises(ValueError):
+        list(FastaParser("tests/bad.fa"))
 
 def test_FastaFormat():
     """
-    Test to make sure that a fasta file is being read in if a fastq file is
+    Test to make sure that a fasta file is being read in. If a fastq file is
     read, the first item is None
     """
-    pass
-
+    fa = FastaParser("test/test.fq")
+    assert next(iter(fa))[0] == None
 
 def test_FastqParser():
     """
     Write your unit test for your FastqParser class here. You should generate
-    an instance of your FastqParser class and assert that it properly reads 
+    an instance of your FastqParser class and assert that it properly reads
     in the example Fastq File.
     """
-    pass
+
+    fq = FastqParser("data/test.fq")
+    for i, record in enumerate(fq):
+        assert(record[0].startswith("seq"))
+        assert(re.fullmatch(r'[ACTG]*', record[1]), f"Invalid characters found in {record[1]}")
+        assert(type(record[2]) is str)
 
 def test_FastqFormat():
     """
     Test to make sure fastq file is being read in. If this is a fasta file, the
     first line is None
     """
-    pass
+    fa = FastqParser("data/test.fa")
+    assert next(iter(fa))[0] == None
