@@ -66,7 +66,7 @@ def test_FastqParser():
 def test_FastqFormat():
     """
     Test to make sure fastq file is being read in. If this is a fasta file, the
-    first line is None
+    first line is None!
     """
     fa = FastqParser("data/test.fa")
     assert next(iter(fa))[0] == None
